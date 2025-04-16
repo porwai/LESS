@@ -324,9 +324,9 @@ def get_alpaca_eval_dataset(data_dir: str,
                 prompt = f"<s> {B_INST} {prompt.strip()} {E_INST}"
         full_input_ids, labels, attention_mask = tokenize(
             tokenizer, prompt, completion, max_length, print_ex=True if i == 0 else False)
-        dataset["input_ids"].append(full_input_ids)
-        dataset["labels"].append(labels)
-        dataset["attention_mask"].append(attention_mask)
+        dataset["input_ids"].append(full_input_ids.tolist())
+        dataset["labels"].append(labels.tolist())
+        dataset["attention_mask"].append(attention_mask.tolist())
 
     return Dataset.from_dict(dataset)
 
