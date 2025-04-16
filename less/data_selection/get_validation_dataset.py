@@ -295,6 +295,40 @@ def get_mmlu_dataset(data_dir: str,
     dataset = Dataset.from_dict(dataset)
     return dataset
 
+def get_alpaca_eval_dataset(data_dir: str,
+                             tokenizer: PreTrainedTokenizerBase,
+                             max_length: int,
+                             use_chat_format: bool = True,
+                             chat_format: str = "tulu",
+                             **kwargs):
+    """
+    Format AlpacaEval dataset in instruction-tuning format.
+    Each prompt is turned into a <|user|> ... <|assistant|> style message.
+    """
+
+    # Expect a file like data/eval/alpaca_eval.json containing [{"input": "<prompt>", "output": ""}, ...]
+    input_file = os.path.join(data_dir, "eval", "alpaca_eval", "alpaca_eval.json")
+    with open(input_file, "r") as f:
+        raw_data = json.load(f)
+
+    dataset = {"input_ids": [], "attention_mask": [], "labels": []}
+
+    for i, ex in enumerate(raw_data):
+        prompt = ex["input"]
+        completion = ex.get("output", "")
+
+        if use_chat_format:
+            if chat_format == "tulu":
+                prompt = "<|user|>\n" + prompt.strip() + "\n<|assistant|>\n"
+            else:
+                prompt = f"<s> {B_INST} {prompt.strip()} {E_INST}"
+        full_input_ids, labels, attention_mask = tokenize(
+            tokenizer, prompt, completion, max_length, print_ex=True if i == 0 else False)
+        dataset["input_ids"].append(full_input_ids)
+        dataset["labels"].append(labels)
+        dataset["attention_mask"].append(attention_mask)
+
+    return Dataset.from_dict(dataset)
 
 def get_dataset(task, **kwargs):
     """
@@ -315,6 +349,8 @@ def get_dataset(task, **kwargs):
         return get_tydiqa_dataset(**kwargs)
     elif task == "mmlu":
         return get_mmlu_dataset(**kwargs)
+    elif task == "alpaca_eval":
+        return get_alpaca_eval_dataset(**kwargs)
     else:
         raise ValueError("Invalid task name")
 
