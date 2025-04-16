@@ -295,41 +295,90 @@ def get_mmlu_dataset(data_dir: str,
     dataset = Dataset.from_dict(dataset)
     return dataset
 
-def get_alpaca_eval_dataset(data_dir: str,
-                             tokenizer: PreTrainedTokenizerBase,
-                             max_length: int,
-                             use_chat_format: bool = True,
-                             chat_format: str = "tulu",
-                             **kwargs):
+def get_alpacaevel_dataset(data_dir: str,
+                           tokenizer: PreTrainedTokenizerBase,
+                           max_length: int,
+                           use_chat_format: bool = True,
+                           chat_format: str = "tulu", # Ensure this matches your training format
+                           **kwargs) -> Dataset:
     """
-    Format AlpacaEval dataset in instruction-tuning format.
-    Each prompt is turned into a <|user|> ... <|assistant|> style message.
-    """
+    Get the AlpacaEval dataset in the instruction tuning format.
 
-    # Expect a file like data/eval/alpaca_eval.json containing [{"input": "<prompt>", "output": ""}, ...]
-    input_file = os.path.join(data_dir, "eval", "alpaca_eval", "alpaca_eval.json")
-    with open(input_file, "r") as f:
-        raw_data = json.load(f)
+    Example format assumes AlpacaEval data has 'instruction' and 'output' fields.
+    Adjust field names ('instruction', 'output') if your data structure is different.
+
+    Query format (example using Tulu):
+    <|user|>
+    {instruction}
+    <|assistant|>
+
+    Completion format:
+    {output}
+
+    Args:
+        data_dir (str): The main data directory (e.g., ../data).
+        tokenizer (PreTrainedTokenizerBase): The tokenizer.
+        max_length (int): Maximum sequence length.
+        use_chat_format (bool): Whether to use chat format. Defaults to True.
+        chat_format (str): The chat format ('tulu', 'llama-chat', etc.). Defaults to "tulu".
+
+    Returns:
+        Dataset: The tokenized AlpacaEval dataset.
+    """
+    # Adjust the file path as needed
+    file_path = os.path.join(data_dir, "eval", "alpacaevel", "alpaca_eval.json")
+    if not os.path.exists(file_path):
+         raise FileNotFoundError(f"AlpacaEval data not found at: {file_path}")
+
+    try:
+        with open(file_path, "r", encoding="utf-8") as f:
+            alpaca_data = json.load(f)
+    except Exception as e:
+        raise RuntimeError(f"Error loading AlpacaEval data from {file_path}: {e}")
 
     dataset = {"input_ids": [], "attention_mask": [], "labels": []}
+    print_ex_once = True # Only print the first example format
 
-    for i, ex in enumerate(raw_data):
-        prompt = ex["input"]
-        completion = ex.get("output", "")
+    for i, example in enumerate(alpaca_data):
+        # --- Adapt these lines based on your AlpacaEval data structure ---
+        instruction = example.get("instruction")
+        output = example.get("output") # Or 'generator', 'response' etc.
+
+        if instruction is None or output is None:
+            print(f"Warning: Skipping example {i} due to missing 'instruction' or 'output' field.")
+            continue
+        # --- End adaptation section ---
 
         if use_chat_format:
             if chat_format == "tulu":
-                prompt = "<|user|>\n" + prompt.strip() + "\n<|assistant|>\n"
+                query = f"<|user|>\n{instruction}\n<|assistant|>\n"
+            elif chat_format == "llama-chat": # Assuming Llama 2 chat format
+                query = f"<s> {B_INST} {instruction.strip()} {E_INST} "
             else:
-                prompt = f"<s> {B_INST} {prompt.strip()} {E_INST}"
+                # Add other chat formats if needed, or raise an error
+                raise ValueError(f"Unsupported chat_format for AlpacaEval: {chat_format}")
+        else:
+            # Define a non-chat format if needed, perhaps just the instruction
+            query = instruction # Adjust if a specific non-chat prompt structure is required
+
+        completion = output # Often, the completion is just the raw output
+
+        # Use the existing tokenize function
         full_input_ids, labels, attention_mask = tokenize(
-            tokenizer, prompt, completion, max_length, print_ex=True if i == 0 else False)
-        dataset["input_ids"].append(full_input_ids.tolist())
-        dataset["labels"].append(labels.tolist())
-        dataset["attention_mask"].append(attention_mask.tolist())
+            tokenizer, query, completion, max_length, print_ex=print_ex_once)
 
-    return Dataset.from_dict(dataset)
+        if print_ex_once:
+            print_ex_once = False # Don't print subsequent examples
 
+        dataset["input_ids"].append(full_input_ids)
+        dataset["labels"].append(labels)
+        dataset["attention_mask"].append(attention_mask)
+
+    if not dataset["input_ids"]:
+         raise ValueError(f"No valid examples found or processed in {file_path}. Check data format and field names ('instruction', 'output').")
+
+    dataset = Dataset.from_dict(dataset)
+    return dataset
 def get_dataset(task, **kwargs):
     """
     Get the dataset for the given task.
@@ -349,7 +398,7 @@ def get_dataset(task, **kwargs):
         return get_tydiqa_dataset(**kwargs)
     elif task == "mmlu":
         return get_mmlu_dataset(**kwargs)
-    elif task == "alpaca_eval":
+    elif task == "alpacaeval":
         return get_alpaca_eval_dataset(**kwargs)
     else:
         raise ValueError("Invalid task name")
