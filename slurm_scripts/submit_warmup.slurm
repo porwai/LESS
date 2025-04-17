@@ -1,0 +1,34 @@
+#!/bin/bash
+#SBATCH --job-name=less_warmup    # Job name for identification
+#SBATCH --output=less_warmup_%j.out # Standard output log file (%j is the job ID)
+#SBATCH --error=less_warmup_%j.err  # Standard error log file (%j is the job ID)
+#SBATCH --partition=gpu           # Specify the GPU partition (IMPORTANT: Verify Adroit's GPU partition name, e.g., 'gpu', 'a100')
+#SBATCH --gres=gpu:1              # Request 1 GPU (Llama 7B LoRA likely needs at least 1)
+#SBATCH --cpus-per-task=4         # Request CPU cores (adjust based on potential data loading needs)
+#SBATCH --mem=64G                 # Request RAM (e.g., 64GB; monitor usage and adjust if needed)
+#SBATCH --time=0-08:00:00         # Maximum runtime (e.g., 8 hours; adjust based on estimate for 5% data)
+
+# --- Environment Setup ---
+module purge # Start with a clean environment
+# Load necessary modules - Check Adroit docs for recommended Anaconda/CUDA versions
+module load anaconda3/anaconda3/2024.10
+# module load cuda/<version> cudnn/<version> # May be needed depending on PyTorch install
+
+# Activate your Conda environment
+conda activate LESS_env # Use the name of the environment you created
+
+# --- Job Execution ---
+# Navigate to the directory where your LESS code repository is located
+cd /scratch/network/pw5115/my_less_project/implicit-ins-improved/LESS
+
+echo "Current directory: $(pwd)"
+echo "Starting wrapper script..."
+
+# Execute your wrapper script
+# Make sure wrapper.sh has execute permissions (chmod +x wrapper.sh)
+chmod +x wrapper.sh
+./wrapper.sh
+
+echo "Wrapper script finished with status $?. Check Slurm output files."
+
+# --- End of Job ---
