@@ -1,5 +1,5 @@
 DATA_DIR=./data
-MODEL_PATH=meta-llama/Llama-2-7b-hf
+MODEL_PATH="/scratch/network/pw5115/my_less_project/Llama-2-7b-hf"
 PERCENTAGE=0.05 # Removed comment just in case
 DATA_SEED=3
 # Ensure correct expansion if pasting: the P should be uppercase
