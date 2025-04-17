@@ -3,7 +3,7 @@
 #SBATCH --output=less_warmup_%j.out # Standard output log file (%j is the job ID)
 #SBATCH --error=less_warmup_%j.err  # Standard error log file (%j is the job ID)
 #SBATCH --partition=gpu           # Specify the GPU partition (IMPORTANT: Verify Adroit's GPU partition name, e.g., 'gpu', 'a100')
-#SBATCH --constraint=a100
+#SBATCH --constraint=gpu80
 #SBATCH --nodes=1                 # Explicitly request one node
 #SBATCH --gres=gpu:1              # Request 1 GPU (Llama 7B LoRA likely needs at least 1)
 #SBATCH --cpus-per-task=4         # Request CPU cores (adjust based on potential data loading needs)
