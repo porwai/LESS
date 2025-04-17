@@ -295,7 +295,7 @@ def get_mmlu_dataset(data_dir: str,
     dataset = Dataset.from_dict(dataset)
     return dataset
 
-def get_alpacaevel_dataset(data_dir: str,
+def get_alpacaeval_dataset(data_dir: str,
                            tokenizer: PreTrainedTokenizerBase,
                            max_length: int,
                            use_chat_format: bool = True,
@@ -326,7 +326,7 @@ def get_alpacaevel_dataset(data_dir: str,
         Dataset: The tokenized AlpacaEval dataset.
     """
     # Adjust the file path as needed
-    file_path = os.path.join(data_dir, "eval", "alpacaevel", "alpaca_eval.json")
+    file_path = os.path.join(data_dir, "eval", "alpaca_eval", "alpaca_eval.json")
     if not os.path.exists(file_path):
          raise FileNotFoundError(f"AlpacaEval data not found at: {file_path}")
 
@@ -399,7 +399,7 @@ def get_dataset(task, **kwargs):
     elif task == "mmlu":
         return get_mmlu_dataset(**kwargs)
     elif task == "alpacaeval":
-        return get_alpaca_eval_dataset(**kwargs)
+        return get_alpacaeval_dataset(**kwargs)
     else:
         raise ValueError("Invalid task name")
 
