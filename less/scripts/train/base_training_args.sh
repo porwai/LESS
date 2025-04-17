@@ -20,7 +20,7 @@ export base_training_args="--do_train True \
 --fp16 False \
 --overwrite_output_dir True \
 --report_to wandb \
---optim adamw_torch \
+# --optim adamw_torch \
 --seed 0 \
 --percentage 1.0 \
 --save_strategy epoch \
