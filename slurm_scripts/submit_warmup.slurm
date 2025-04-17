@@ -22,12 +22,12 @@ conda activate LESS_env # Use the name of the environment you created
 cd /scratch/network/pw5115/my_less_project/implicit-ins-improved/LESS
 
 echo "Current directory: $(pwd)"
-echo "Starting wrapper script..."
+echo "Starting run_warmup script..."
 
-# Execute your wrapper script
-# Make sure wrapper.sh has execute permissions (chmod +x wrapper.sh)
-chmod +x wrapper.sh
-./wrapper.sh
+# Execute your run_warmup script
+# Make sure run_warmup.sh has execute permissions (chmod +x run_warmup.sh)
+chmod +x run_warmup.sh
+./run_warmup.sh
 
 echo "Wrapper script finished with status $?. Check Slurm output files."
 
