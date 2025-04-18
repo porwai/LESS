@@ -1,0 +1,16 @@
+2025-04-17 21:26:15,047 INFO    MainThread:2683315 [wandb_setup.py:_flush():67] Current SDK version is 0.19.9
+2025-04-17 21:26:15,047 INFO    MainThread:2683315 [wandb_setup.py:_flush():67] Configure stats pid to 2683315
+2025-04-17 21:26:15,048 INFO    MainThread:2683315 [wandb_setup.py:_flush():67] Loading settings from /home/pw5115/.config/wandb/settings
+2025-04-17 21:26:15,048 INFO    MainThread:2683315 [wandb_setup.py:_flush():67] Loading settings from /scratch/network/pw5115/my_less_project/implicit-ins-improved/LESS/wandb/settings
+2025-04-17 21:26:15,048 INFO    MainThread:2683315 [wandb_setup.py:_flush():67] Loading settings from environment variables
+2025-04-17 21:26:15,048 INFO    MainThread:2683315 [wandb_init.py:setup_run_log_directory():662] Logging user logs to /scratch/network/pw5115/my_less_project/implicit-ins-improved/LESS/wandb/run-20250417_212615-lq43wpuy/logs/debug.log
+2025-04-17 21:26:15,048 INFO    MainThread:2683315 [wandb_init.py:setup_run_log_directory():663] Logging internal logs to /scratch/network/pw5115/my_less_project/implicit-ins-improved/LESS/wandb/run-20250417_212615-lq43wpuy/logs/debug-internal.log
+2025-04-17 21:26:15,048 INFO    MainThread:2683315 [wandb_init.py:init():781] calling init triggers
+2025-04-17 21:26:15,048 INFO    MainThread:2683315 [wandb_init.py:init():786] wandb.init called with sweep_config: {}
+config: {'_wandb': {}}
+2025-04-17 21:26:15,048 INFO    MainThread:2683315 [wandb_init.py:init():809] starting backend
+2025-04-17 21:26:15,048 INFO    MainThread:2683315 [wandb_init.py:init():813] sending inform_init request
+2025-04-17 21:26:15,050 INFO    MainThread:2683315 [backend.py:_multiprocessing_setup():101] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2025-04-17 21:26:15,050 INFO    MainThread:2683315 [wandb_init.py:init():823] backend started and connected
+2025-04-17 21:26:15,050 INFO    MainThread:2683315 [wandb_init.py:init():915] updated telemetry
+2025-04-17 21:26:15,056 INFO    MainThread:2683315 [wandb_init.py:init():939] communicating run to backend with 90.0 second timeout

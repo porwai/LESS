@@ -6,9 +6,9 @@ from less.data_selection.get_validation_dataset import get_dataset, get_dataload
 
 # --- Configuration ---
 # Path to the base model used for tokenization (should match training/warmup)
-MODEL_PATH = "meta-llama/Llama-2-7b-hf"
+MODEL_PATH = "/scratch/network/pw5115/my_less_project/Llama-2-7b-hf"
 # Path to your main data directory
-DATA_DIR = "../data"
+DATA_DIR = "./data"
 # Max sequence length used in LESS steps
 MAX_LENGTH = 2048 # Or whatever you used
 # Chat format used (must match training/warmup and your function)

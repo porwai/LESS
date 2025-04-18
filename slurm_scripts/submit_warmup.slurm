@@ -16,7 +16,6 @@ echo "CUDA_VISIBLE_DEVICES: $CUDA_VISIBLE_DEVICES" # See which GPUs CUDA apps wi
 
 # --- Environment Setup ---
 module purge # Start with a clean environment
-# Load necessary modules - Check Adroit docs for recommended Anaconda/CUDA versions
 module load anaconda3/2024.10
 # module load cuda/<version> cudnn/<version> # May be needed depending on PyTorch install
 

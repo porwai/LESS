@@ -1,0 +1,485 @@
+Job running on node: adroit-h11g1
+SLURM_JOB_GPUS: 2
+CUDA_VISIBLE_DEVICES: 0
+Current directory: /scratch/network/pw5115/my_less_project/implicit-ins-improved/LESS
+Starting run_warmup script...
+JOB_NAME is set to: llama2-7b-p0.05-lora-seed3
+🚀  Launching warm‑up with:
+    Model        : /scratch/network/pw5115/my_less_project/Llama-2-7b-hf
+    Train set    : dolly
+    Data fraction: 0.05
+    Seed         : 3
+    Output dir   : ../out/llama2-7b-p0.05-lora-seed3
+
+[2025-04-17 21:25:53,858] torch.distributed.run: [WARNING] master_addr is only used for static rdzv_backend and when rdzv_endpoint is not specified.
+04/17/2025 21:25:56 - WARNING - __main__ - Process rank: 0, device: cuda:0, n_gpu: 1distributed training: True, 16-bits training: False
+04/17/2025 21:25:56 - INFO - __main__ - Training parameters TrainingArguments(
+_n_gpu=1,
+adafactor=False,
+adam_beta1=0.9,
+adam_beta2=0.999,
+adam_epsilon=1e-08,
+analysis_dataset=bbh,
+analysis_mode=False,
+auto_find_batch_size=False,
+bf16=True,
+bf16_full_eval=False,
+data_seed=3,
+dataloader_drop_last=False,
+dataloader_num_workers=0,
+dataloader_persistent_workers=False,
+dataloader_pin_memory=True,
+ddp_backend=None,
+ddp_broadcast_buffers=None,
+ddp_bucket_cap_mb=None,
+ddp_find_unused_parameters=None,
+ddp_timeout=1800,
+debug=[],
+deepspeed=None,
+disable_tqdm=False,
+dispatch_batches=None,
+do_eval=False,
+do_predict=False,
+do_train=True,
+eval_accumulation_steps=None,
+eval_delay=0,
+eval_steps=None,
+evaluation_strategy=no,
+fp16=False,
+fp16_backend=auto,
+fp16_full_eval=False,
+fp16_opt_level=O1,
+fsdp=[],
+fsdp_config={'min_num_params': 0, 'xla': False, 'xla_fsdp_grad_ckpt': False},
+fsdp_min_num_params=0,
+fsdp_transformer_layer_cls_to_wrap=None,
+full_determinism=False,
+gradient_accumulation_steps=32,
+gradient_checkpointing=False,
+gradient_checkpointing_kwargs=None,
+greater_is_better=None,
+group_by_length=False,
+half_precision_backend=auto,
+hub_always_push=False,
+hub_model_id=None,
+hub_private_repo=False,
+hub_strategy=every_save,
+hub_token=<HUB_TOKEN>,
+ignore_data_skip=False,
+include_inputs_for_metrics=False,
+include_num_input_tokens_seen=False,
+include_tokens_per_second=False,
+jit_mode_eval=False,
+label_names=None,
+label_smoothing_factor=0.0,
+learning_rate=2e-05,
+length_column_name=length,
+load_best_model_at_end=False,
+local_rank=0,
+log_level=passive,
+log_level_replica=warning,
+log_on_each_node=True,
+logging_dir=../out/llama2-7b-p0.05-lora-seed3/runs/Apr17_21-25-56_adroit-h11g1,
+logging_first_step=False,
+logging_nan_inf_filter=True,
+logging_steps=1.0,
+logging_strategy=steps,
+lr_scheduler_kwargs={},
+lr_scheduler_type=linear,
+max_grad_norm=1.0,
+max_steps=-1,
+metric_for_best_model=None,
+mp_parameters=,
+neftune_noise_alpha=None,
+no_cuda=False,
+num_train_epochs=4.0,
+optim=adamw_torch,
+optim_args=None,
+output_dir=../out/llama2-7b-p0.05-lora-seed3,
+overwrite_output_dir=True,
+past_index=-1,
+per_device_eval_batch_size=8,
+per_device_train_batch_size=1,
+prediction_loss_only=False,
+push_to_hub=False,
+push_to_hub_model_id=None,
+push_to_hub_organization=None,
+push_to_hub_token=<PUSH_TO_HUB_TOKEN>,
+ray_scope=last,
+remove_unused_columns=True,
+report_to=['wandb'],
+resume_from_checkpoint=None,
+run_name=../out/llama2-7b-p0.05-lora-seed3,
+save_on_each_node=False,
+save_only_model=False,
+save_safetensors=True,
+save_steps=500,
+save_strategy=epoch,
+save_total_limit=None,
+seed=0,
+skip_memory_metrics=True,
+split_batches=False,
+tf32=False,
+torch_compile=False,
+torch_compile_backend=None,
+torch_compile_mode=None,
+torchdynamo=None,
+tpu_metrics_debug=False,
+tpu_num_cores=None,
+train_dataset_names=None,
+use_cpu=False,
+use_ipex=False,
+use_legacy_prediction_loop=False,
+use_mps_device=False,
+warmup_ratio=0.03,
+warmup_steps=0,
+weight_decay=0.0,
+)
+04/17/2025 21:25:56 - INFO - __main__ - Model parameters ModelArguments(model_name_or_path='/scratch/network/pw5115/my_less_project/Llama-2-7b-hf', config_name=None, tokenizer_name=None, cache_dir=None, use_fast_tokenizer=True, model_revision='main', use_auth_token=False, torch_dtype=None, lora=True, lora_r=128, lora_alpha=512.0, lora_dropout=0.1, lora_target_modules=['q_proj', 'k_proj', 'v_proj', 'o_proj'])
+04/17/2025 21:25:56 - INFO - __main__ - Dataset parameters DataArguments(train_files=['./data/train/processed/dolly/dolly_data.jsonl'], overwrite_cache=False, preprocessing_num_workers=None, max_seq_length=2048, sample_data_seed=42, percentage=0.05)
+[INFO|tokenization_utils_base.py:2024] 2025-04-17 21:25:56,205 >> loading file tokenizer.model
+[INFO|tokenization_utils_base.py:2024] 2025-04-17 21:25:56,205 >> loading file tokenizer.json
+[INFO|tokenization_utils_base.py:2024] 2025-04-17 21:25:56,205 >> loading file added_tokens.json
+[INFO|tokenization_utils_base.py:2024] 2025-04-17 21:25:56,205 >> loading file special_tokens_map.json
+[INFO|tokenization_utils_base.py:2024] 2025-04-17 21:25:56,205 >> loading file tokenizer_config.json
+Using custom data configuration default-ff6d2625546ccae3
+04/17/2025 21:25:56 - INFO - datasets.builder - Using custom data configuration default-ff6d2625546ccae3
+Loading Dataset Infos from /home/pw5115/.conda/envs/LESS_env/lib/python3.10/site-packages/datasets/packaged_modules/json
+04/17/2025 21:25:56 - INFO - datasets.info - Loading Dataset Infos from /home/pw5115/.conda/envs/LESS_env/lib/python3.10/site-packages/datasets/packaged_modules/json
+Generating dataset json (/home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092)
+04/17/2025 21:25:56 - INFO - datasets.builder - Generating dataset json (/home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092)
+Downloading and preparing dataset json/default to /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092...
+04/17/2025 21:25:56 - INFO - datasets.builder - Downloading and preparing dataset json/default to /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092...
+Downloading took 0.0 min
+04/17/2025 21:25:56 - INFO - datasets.download.download_manager - Downloading took 0.0 min
+Checksum Computation took 0.0 min
+04/17/2025 21:25:56 - INFO - datasets.download.download_manager - Checksum Computation took 0.0 min
+Generating train split
+04/17/2025 21:25:56 - INFO - datasets.builder - Generating train split
+Generating train split: 0 examples [00:00, ? examples/s]Generating train split: 15011 examples [00:00, 324412.59 examples/s]
+Unable to verify splits sizes.
+04/17/2025 21:25:56 - INFO - datasets.utils.info_utils - Unable to verify splits sizes.
+Dataset json downloaded and prepared to /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092. Subsequent calls will reuse this data.
+04/17/2025 21:25:56 - INFO - datasets.builder - Dataset json downloaded and prepared to /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092. Subsequent calls will reuse this data.
+Process #0 will write at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00000_of_00010.arrow
+04/17/2025 21:25:56 - INFO - datasets.arrow_dataset - Process #0 will write at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00000_of_00010.arrow
+Process #1 will write at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00001_of_00010.arrow
+04/17/2025 21:25:56 - INFO - datasets.arrow_dataset - Process #1 will write at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00001_of_00010.arrow
+Process #2 will write at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00002_of_00010.arrow
+04/17/2025 21:25:56 - INFO - datasets.arrow_dataset - Process #2 will write at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00002_of_00010.arrow
+Process #3 will write at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00003_of_00010.arrow
+04/17/2025 21:25:56 - INFO - datasets.arrow_dataset - Process #3 will write at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00003_of_00010.arrow
+Process #4 will write at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00004_of_00010.arrow
+04/17/2025 21:25:56 - INFO - datasets.arrow_dataset - Process #4 will write at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00004_of_00010.arrow
+Process #5 will write at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00005_of_00010.arrow
+04/17/2025 21:25:56 - INFO - datasets.arrow_dataset - Process #5 will write at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00005_of_00010.arrow
+Process #6 will write at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00006_of_00010.arrow
+04/17/2025 21:25:56 - INFO - datasets.arrow_dataset - Process #6 will write at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00006_of_00010.arrow
+Process #7 will write at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00007_of_00010.arrow
+04/17/2025 21:25:56 - INFO - datasets.arrow_dataset - Process #7 will write at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00007_of_00010.arrow
+Process #8 will write at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00008_of_00010.arrow
+04/17/2025 21:25:56 - INFO - datasets.arrow_dataset - Process #8 will write at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00008_of_00010.arrow
+Process #9 will write at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00009_of_00010.arrow
+04/17/2025 21:25:56 - INFO - datasets.arrow_dataset - Process #9 will write at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00009_of_00010.arrow
+Spawning 10 processes
+04/17/2025 21:25:56 - INFO - datasets.arrow_dataset - Spawning 10 processes
+Tokenizing and reformatting instruction data (num_proc=10):   0%|          | 0/750 [00:00<?, ? examples/s]Caching processed dataset at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00001_of_00010.arrow
+04/17/2025 21:25:56 - INFO - datasets.arrow_dataset - Caching processed dataset at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00001_of_00010.arrow
+Caching processed dataset at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00000_of_00010.arrow
+04/17/2025 21:25:56 - INFO - datasets.arrow_dataset - Caching processed dataset at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00000_of_00010.arrow
+Caching processed dataset at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00002_of_00010.arrow
+04/17/2025 21:25:56 - INFO - datasets.arrow_dataset - Caching processed dataset at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00002_of_00010.arrow
+Caching processed dataset at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00003_of_00010.arrow
+04/17/2025 21:25:56 - INFO - datasets.arrow_dataset - Caching processed dataset at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00003_of_00010.arrow
+Tokenizing and reformatting instruction data (num_proc=10):   4%|▍         | 33/750 [00:00<00:03, 190.75 examples/s]Caching processed dataset at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00004_of_00010.arrow
+04/17/2025 21:25:56 - INFO - datasets.arrow_dataset - Caching processed dataset at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00004_of_00010.arrow
+Caching processed dataset at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00006_of_00010.arrow
+04/17/2025 21:25:56 - INFO - datasets.arrow_dataset - Caching processed dataset at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00006_of_00010.arrow
+Caching processed dataset at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00005_of_00010.arrow
+04/17/2025 21:25:56 - INFO - datasets.arrow_dataset - Caching processed dataset at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00005_of_00010.arrow
+Caching processed dataset at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00007_of_00010.arrow
+04/17/2025 21:25:56 - INFO - datasets.arrow_dataset - Caching processed dataset at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00007_of_00010.arrow
+Tokenizing and reformatting instruction data (num_proc=10):  37%|███▋      | 274/750 [00:00<00:00, 1176.52 examples/s]Caching processed dataset at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00009_of_00010.arrow
+04/17/2025 21:25:56 - INFO - datasets.arrow_dataset - Caching processed dataset at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00009_of_00010.arrow
+Caching processed dataset at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00008_of_00010.arrow
+04/17/2025 21:25:56 - INFO - datasets.arrow_dataset - Caching processed dataset at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-d6e558f7a423a80c_00008_of_00010.arrow
+Tokenizing and reformatting instruction data (num_proc=10): 100%|██████████| 750/750 [00:00<00:00, 1754.89 examples/s]
+Concatenating 10 shards
+04/17/2025 21:25:56 - INFO - datasets.arrow_dataset - Concatenating 10 shards
+[INFO|configuration_utils.py:737] 2025-04-17 21:25:56,838 >> loading configuration file /scratch/network/pw5115/my_less_project/Llama-2-7b-hf/config.json
+[INFO|configuration_utils.py:802] 2025-04-17 21:25:56,839 >> Model config LlamaConfig {
+  "_name_or_path": "/scratch/network/pw5115/my_less_project/Llama-2-7b-hf",
+  "architectures": [
+    "LlamaForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 1,
+  "eos_token_id": 2,
+  "hidden_act": "silu",
+  "hidden_size": 4096,
+  "initializer_range": 0.02,
+  "intermediate_size": 11008,
+  "max_position_embeddings": 4096,
+  "model_type": "llama",
+  "num_attention_heads": 32,
+  "num_hidden_layers": 32,
+  "num_key_value_heads": 32,
+  "pretraining_tp": 1,
+  "rms_norm_eps": 1e-05,
+  "rope_scaling": null,
+  "rope_theta": 10000.0,
+  "tie_word_embeddings": false,
+  "transformers_version": "4.36.2",
+  "use_cache": true,
+  "vocab_size": 32000
+}
+
+[INFO|modeling_utils.py:3341] 2025-04-17 21:25:56,878 >> loading weights file /scratch/network/pw5115/my_less_project/Llama-2-7b-hf/model.safetensors.index.json
+[INFO|configuration_utils.py:826] 2025-04-17 21:25:56,878 >> Generate config GenerationConfig {
+  "bos_token_id": 1,
+  "eos_token_id": 2
+}
+
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:01<00:01,  1.16s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.31it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.21it/s]
+[INFO|modeling_utils.py:4185] 2025-04-17 21:25:58,576 >> All model checkpoint weights were used when initializing LlamaForCausalLM.
+
+[INFO|modeling_utils.py:4193] 2025-04-17 21:25:58,576 >> All the weights of LlamaForCausalLM were initialized from the model checkpoint at /scratch/network/pw5115/my_less_project/Llama-2-7b-hf.
+If your task is similar to the task the model of the checkpoint was trained on, you can already use LlamaForCausalLM for predictions without further training.
+[INFO|configuration_utils.py:779] 2025-04-17 21:25:58,578 >> loading configuration file /scratch/network/pw5115/my_less_project/Llama-2-7b-hf/generation_config.json
+[INFO|configuration_utils.py:826] 2025-04-17 21:25:58,578 >> Generate config GenerationConfig {
+  "bos_token_id": 1,
+  "do_sample": true,
+  "eos_token_id": 2,
+  "max_length": 4096,
+  "pad_token_id": 0,
+  "temperature": 0.6,
+  "top_p": 0.9
+}
+
+[INFO|modeling_utils.py:1813] 2025-04-17 21:25:58,583 >> You are resizing the embedding layer without providing a `pad_to_multiple_of` parameter. This means that the new embedding dimension will be 32001. This might induce some performance reduction as *Tensor Cores* will not be available. For more details about this, or help on choosing the correct value for resizing, refer to this guide: https://docs.nvidia.com/deeplearning/performance/dl-performance-matrix-multiplication/index.html#requirements-tc
+04/17/2025 21:26:01 - INFO - __main__ - Applied LoRA to model.
+trainable params: 134,217,728 || all params: 6,872,641,536 || trainable%: 1.9529278123549145
+Map:   0%|          | 0/750 [00:00<?, ? examples/s]/scratch/network/pw5115/my_less_project/implicit-ins-improved/LESS/less/train/data_arguments.py:50: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  com_len = (torch.tensor(labels) > -1).sum()
+Caching processed dataset at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-e9a54e80607e9ac3.arrow
+04/17/2025 21:26:01 - INFO - datasets.arrow_dataset - Caching processed dataset at /home/pw5115/.cache/huggingface/datasets/json/default-ff6d2625546ccae3/0.0.0/f4e89e8750d5d5ffbef2c078bf0ddfedef29dc2faff52a6255cf513c05eb1092/cache-e9a54e80607e9ac3.arrow
+Map: 100%|██████████| 750/750 [00:00<00:00, 12610.15 examples/s]
+[train set] examples: 750; # avg tokens: 243.2306671142578
+[train set] examples: 750; # avg completion tokens: 93.42133331298828
+04/17/2025 21:26:01 - INFO - __main__ - Sample 394 of the training set: {'input_ids': tensor([    1,   529, 29989,  1792, 29989, 29958,    13,  5618,   437,   366,
+         1348,   526,   278,  1556,  8018,  2712,   297,  2834, 29973,    13,
+        29966, 29989,   465, 22137, 29989, 29958,    13,  7058, 29915, 29879,
+          263,  1407,  4280,  1139,   322,  7111,   373,   278,  5375,   322,
+         1009, 14209, 29889,  2193,  1497, 29892,   372,   723,   367,  6534,
+          304,  5251,   393,  3942, 29892,  7875, 29892,   322,  9045,   674,
+         5517,  7115,  1880,   363,  1784,  2305, 29889,     2, 29871,    13]), 'labels': tensor([ -100,  -100,  -100,  -100,  -100,  -100,  -100,  -100,  -100,  -100,
+         -100,  -100,  -100,  -100,  -100,  -100,  -100,  -100,  -100,  -100,
+         -100,  -100,  -100,  -100,  -100,  -100,  -100,  7058, 29915, 29879,
+          263,  1407,  4280,  1139,   322,  7111,   373,   278,  5375,   322,
+         1009, 14209, 29889,  2193,  1497, 29892,   372,   723,   367,  6534,
+          304,  5251,   393,  3942, 29892,  7875, 29892,   322,  9045,   674,
+         5517,  7115,  1880,   363,  1784,  2305, 29889,     2, 29871,    13]), 'attention_mask': tensor([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1])}.
+04/17/2025 21:26:01 - INFO - __main__ - trainable model_params: 134217728
+PeftModelForCausalLM(
+  (base_model): LoraModel(
+    (model): LlamaForCausalLM(
+      (model): LlamaModel(
+        (embed_tokens): Embedding(32001, 4096)
+        (layers): ModuleList(
+          (0-31): 32 x LlamaDecoderLayer(
+            (self_attn): LlamaSdpaAttention(
+              (q_proj): lora.Linear(
+                (base_layer): Linear(in_features=4096, out_features=4096, bias=False)
+                (lora_dropout): ModuleDict(
+                  (default): Dropout(p=0.1, inplace=False)
+                )
+                (lora_A): ModuleDict(
+                  (default): Linear(in_features=4096, out_features=128, bias=False)
+                )
+                (lora_B): ModuleDict(
+                  (default): Linear(in_features=128, out_features=4096, bias=False)
+                )
+                (lora_embedding_A): ParameterDict()
+                (lora_embedding_B): ParameterDict()
+              )
+              (k_proj): lora.Linear(
+                (base_layer): Linear(in_features=4096, out_features=4096, bias=False)
+                (lora_dropout): ModuleDict(
+                  (default): Dropout(p=0.1, inplace=False)
+                )
+                (lora_A): ModuleDict(
+                  (default): Linear(in_features=4096, out_features=128, bias=False)
+                )
+                (lora_B): ModuleDict(
+                  (default): Linear(in_features=128, out_features=4096, bias=False)
+                )
+                (lora_embedding_A): ParameterDict()
+                (lora_embedding_B): ParameterDict()
+              )
+              (v_proj): lora.Linear(
+                (base_layer): Linear(in_features=4096, out_features=4096, bias=False)
+                (lora_dropout): ModuleDict(
+                  (default): Dropout(p=0.1, inplace=False)
+                )
+                (lora_A): ModuleDict(
+                  (default): Linear(in_features=4096, out_features=128, bias=False)
+                )
+                (lora_B): ModuleDict(
+                  (default): Linear(in_features=128, out_features=4096, bias=False)
+                )
+                (lora_embedding_A): ParameterDict()
+                (lora_embedding_B): ParameterDict()
+              )
+              (o_proj): lora.Linear(
+                (base_layer): Linear(in_features=4096, out_features=4096, bias=False)
+                (lora_dropout): ModuleDict(
+                  (default): Dropout(p=0.1, inplace=False)
+                )
+                (lora_A): ModuleDict(
+                  (default): Linear(in_features=4096, out_features=128, bias=False)
+                )
+                (lora_B): ModuleDict(
+                  (default): Linear(in_features=128, out_features=4096, bias=False)
+                )
+                (lora_embedding_A): ParameterDict()
+                (lora_embedding_B): ParameterDict()
+              )
+              (rotary_emb): LlamaRotaryEmbedding()
+            )
+            (mlp): LlamaMLP(
+              (gate_proj): Linear(in_features=4096, out_features=11008, bias=False)
+              (up_proj): Linear(in_features=4096, out_features=11008, bias=False)
+              (down_proj): Linear(in_features=11008, out_features=4096, bias=False)
+              (act_fn): SiLU()
+            )
+            (input_layernorm): LlamaRMSNorm()
+            (post_attention_layernorm): LlamaRMSNorm()
+          )
+        )
+        (norm): LlamaRMSNorm()
+      )
+      (lm_head): Linear(in_features=4096, out_features=32001, bias=False)
+    )
+  )
+)
+/home/pw5115/.conda/envs/LESS_env/lib/python3.10/site-packages/accelerate/accelerator.py:432: FutureWarning: Passing the following arguments to `Accelerator` is deprecated and will be removed in version 1.0 of Accelerate: dict_keys(['dispatch_batches', 'split_batches']). Please pass an `accelerate.DataLoaderConfiguration` instead: 
+dataloader_config = DataLoaderConfiguration(dispatch_batches=None, split_batches=False)
+  warnings.warn(
+04/17/2025 21:26:01 - WARNING - accelerate.utils.other - Detected kernel version 4.18.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+[INFO|trainer.py:568] 2025-04-17 21:26:04,434 >> Using auto half precision backend
+[INFO|trainer.py:1706] 2025-04-17 21:26:04,759 >> ***** Running training *****
+[INFO|trainer.py:1707] 2025-04-17 21:26:04,759 >>   Num examples = 750
+[INFO|trainer.py:1708] 2025-04-17 21:26:04,759 >>   Num Epochs = 4
+[INFO|trainer.py:1709] 2025-04-17 21:26:04,759 >>   Instantaneous batch size per device = 1
+[INFO|trainer.py:1712] 2025-04-17 21:26:04,759 >>   Total train batch size (w. parallel, distributed & accumulation) = 32
+[INFO|trainer.py:1713] 2025-04-17 21:26:04,759 >>   Gradient Accumulation steps = 32
+[INFO|trainer.py:1714] 2025-04-17 21:26:04,759 >>   Total optimization steps = 92
+[INFO|trainer.py:1715] 2025-04-17 21:26:04,761 >>   Number of trainable parameters = 134,217,728
+[INFO|integration_utils.py:722] 2025-04-17 21:26:04,814 >> Automatic Weights & Biases logging enabled, to disable set os.environ["WANDB_DISABLED"] = "true"
+wandb: Using wandb-core as the SDK backend.  Please refer to https://wandb.me/wandb-core for more information.
+wandb: Network error (ConnectionError), entering retry loop.
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+wandb: Network error (ConnectionError), entering retry loop.
+wandb: ERROR Run initialization has timed out after 90.0 sec. Please try increasing the timeout with the `init_timeout` setting: `wandb.init(settings=wandb.Settings(init_timeout=120))`.
+04/17/2025 21:27:45 - WARNING - urllib3.connectionpool - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1486c10df3d0>: Failed to resolve 'o151352.ingest.sentry.io' ([Errno -2] Name or service not known)")': /api/4504800232407040/envelope/
+04/17/2025 21:27:45 - WARNING - urllib3.connectionpool - Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1486c10dfe20>: Failed to resolve 'o151352.ingest.sentry.io' ([Errno -2] Name or service not known)")': /api/4504800232407040/envelope/
+Traceback (most recent call last):
+  File "/home/pw5115/.conda/envs/LESS_env/lib/python3.10/asyncio/locks.py", line 214, in wait
+    await fut
+asyncio.exceptions.CancelledError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/pw5115/.conda/envs/LESS_env/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/pw5115/.conda/envs/LESS_env/lib/python3.10/site-packages/wandb/sdk/mailbox/response_handle.py", line 109, in wait_async
+    await asyncio.wait_for(evt.wait(), timeout=timeout)
+  File "/home/pw5115/.conda/envs/LESS_env/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/pw5115/.conda/envs/LESS_env/lib/python3.10/site-packages/wandb/sdk/wandb_init.py", line 965, in init
+    result = wait_with_progress(
+  File "/home/pw5115/.conda/envs/LESS_env/lib/python3.10/site-packages/wandb/sdk/mailbox/wait_with_progress.py", line 24, in wait_with_progress
+    return wait_all_with_progress(
+  File "/home/pw5115/.conda/envs/LESS_env/lib/python3.10/site-packages/wandb/sdk/mailbox/wait_with_progress.py", line 87, in wait_all_with_progress
+    return asyncio_compat.run(progress_loop_with_timeout)
+  File "/home/pw5115/.conda/envs/LESS_env/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_compat.py", line 30, in run
+    return future.result()
+  File "/home/pw5115/.conda/envs/LESS_env/lib/python3.10/concurrent/futures/_base.py", line 458, in result
+    return self.__get_result()
+  File "/home/pw5115/.conda/envs/LESS_env/lib/python3.10/concurrent/futures/_base.py", line 403, in __get_result
+    raise self._exception
+  File "/home/pw5115/.conda/envs/LESS_env/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/home/pw5115/.conda/envs/LESS_env/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_compat.py", line 74, in run
+    return asyncio.run(self._run_or_cancel(fn))
+  File "/home/pw5115/.conda/envs/LESS_env/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/home/pw5115/.conda/envs/LESS_env/lib/python3.10/asyncio/base_events.py", line 649, in run_until_complete
+    return future.result()
+  File "/home/pw5115/.conda/envs/LESS_env/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_compat.py", line 98, in _run_or_cancel
+    return fn_task.result()
+  File "/home/pw5115/.conda/envs/LESS_env/lib/python3.10/site-packages/wandb/sdk/mailbox/wait_with_progress.py", line 82, in progress_loop_with_timeout
+    return await _wait_handles_async(
+  File "/home/pw5115/.conda/envs/LESS_env/lib/python3.10/site-packages/wandb/sdk/mailbox/wait_with_progress.py", line 130, in _wait_handles_async
+    async with asyncio_compat.open_task_group() as task_group:
+  File "/home/pw5115/.conda/envs/LESS_env/lib/python3.10/contextlib.py", line 206, in __aexit__
+    await anext(self.gen)
+  File "/home/pw5115/.conda/envs/LESS_env/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_compat.py", line 190, in open_task_group
+    await task_group._wait_all()
+  File "/home/pw5115/.conda/envs/LESS_env/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_compat.py", line 159, in _wait_all
+    raise exc
+  File "/home/pw5115/.conda/envs/LESS_env/lib/python3.10/site-packages/wandb/sdk/mailbox/wait_with_progress.py", line 128, in wait_single
+    results[index] = await handle.wait_async(timeout=timeout)
+  File "/home/pw5115/.conda/envs/LESS_env/lib/python3.10/site-packages/wandb/sdk/mailbox/mailbox_handle.py", line 126, in wait_async
+    response = await self._handle.wait_async(timeout=timeout)
+  File "/home/pw5115/.conda/envs/LESS_env/lib/python3.10/site-packages/wandb/sdk/mailbox/response_handle.py", line 118, in wait_async
+    raise TimeoutError(
+TimeoutError: Timed out waiting for response on plb9fl3x40tv
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/pw5115/.conda/envs/LESS_env/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/home/pw5115/.conda/envs/LESS_env/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/scratch/network/pw5115/my_less_project/implicit-ins-improved/LESS/less/train/train.py", line 178, in <module>
+    main()
+  File "/scratch/network/pw5115/my_less_project/implicit-ins-improved/LESS/less/train/train.py", line 158, in main
+    train_result = trainer.train()
+  File "/home/pw5115/.conda/envs/LESS_env/lib/python3.10/site-packages/transformers/trainer.py", line 1537, in train
+    return inner_training_loop(
+  File "/home/pw5115/.conda/envs/LESS_env/lib/python3.10/site-packages/transformers/trainer.py", line 1772, in _inner_training_loop
+    self.control = self.callback_handler.on_train_begin(args, self.state, self.control)
+  File "/home/pw5115/.conda/envs/LESS_env/lib/python3.10/site-packages/transformers/trainer_callback.py", line 370, in on_train_begin
+    return self.call_event("on_train_begin", args, state, control)
+  File "/home/pw5115/.conda/envs/LESS_env/lib/python3.10/site-packages/transformers/trainer_callback.py", line 414, in call_event
+    result = getattr(callback, event)(
+  File "/home/pw5115/.conda/envs/LESS_env/lib/python3.10/site-packages/transformers/integrations/integration_utils.py", line 767, in on_train_begin
+    self.setup(args, state, model, **kwargs)
+  File "/home/pw5115/.conda/envs/LESS_env/lib/python3.10/site-packages/transformers/integrations/integration_utils.py", line 740, in setup
+    self._wandb.init(
+  File "/home/pw5115/.conda/envs/LESS_env/lib/python3.10/site-packages/wandb/sdk/wandb_init.py", line 1544, in init
+    wandb._sentry.reraise(e)
+  File "/home/pw5115/.conda/envs/LESS_env/lib/python3.10/site-packages/wandb/analytics/sentry.py", line 156, in reraise
+    raise exc.with_traceback(sys.exc_info()[2])
+  File "/home/pw5115/.conda/envs/LESS_env/lib/python3.10/site-packages/wandb/sdk/wandb_init.py", line 1530, in init
+    return wi.init(run_settings, run_config)
+  File "/home/pw5115/.conda/envs/LESS_env/lib/python3.10/site-packages/wandb/sdk/wandb_init.py", line 978, in init
+    raise CommError(
+wandb.errors.errors.CommError: Run initialization has timed out after 90.0 sec. Please try increasing the timeout with the `init_timeout` setting: `wandb.init(settings=wandb.Settings(init_timeout=120))`.
+04/17/2025 21:27:45 - WARNING - urllib3.connectionpool - Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1486c10df940>: Failed to resolve 'o151352.ingest.sentry.io' ([Errno -2] Name or service not known)")': /api/4504800232407040/envelope/
