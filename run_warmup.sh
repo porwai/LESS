@@ -2,7 +2,7 @@ DATA_DIR=./data
 MODEL_PATH="/scratch/network/pw5115/my_less_project/Llama-2-7b-hf"
 PERCENTAGE=0.05 # Removed comment just in case
 DATA_SEED=3
-TRAIN_SET=dolly
+TRAIN_SET=openmathinstruct1
 # Ensure correct expansion if pasting: the P should be uppercase
 JOB_NAME="llama2-7b-p${PERCENTAGE}-lora-seed${DATA_SEED}"
 

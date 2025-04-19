@@ -8,7 +8,7 @@
 #SBATCH --gres=gpu:1              # Request 1 GPU (Llama 7B LoRA likely needs at least 1)
 #SBATCH --cpus-per-task=4         # Request CPU cores (adjust based on potential data loading needs)
 #SBATCH --mem=64G                 # Request RAM (e.g., 64GB; monitor usage and adjust if needed)
-#SBATCH --time=0-08:00:00         # Maximum runtime (e.g., 8 hours; adjust based on estimate for 5% data)
+#SBATCH --time=0-16:00:00         # Maximum runtime (e.g., 8 hours; adjust based on estimate for 5% data)
 
 echo "Job running on node: $(hostname)"
 echo "SLURM_JOB_GPUS: $SLURM_JOB_GPUS" # See which GPU IDs Slurm allocated
@@ -28,6 +28,9 @@ cd /scratch/network/pw5115/my_less_project/implicit-ins-improved/LESS
 
 echo "Current directory: $(pwd)"
 echo "Starting run_warmup script..."
+
+export WANDB_MODE=offline
+echo "WANDB_MODE set to: $WANDB_MODE"
 
 # Execute your run_warmup script
 # Make sure run_warmup.sh has execute permissions (chmod +x run_warmup.sh)
