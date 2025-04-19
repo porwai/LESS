@@ -1,1 +1,36 @@
 data/
+wandb/
+
+# .gitignore additions
+
+# Ignore SLURM log files (output and error)
+slurm_scripts/*.out
+slurm_scripts/*.err
+
+# Ignore SLURM log files in potential subdirectories too (more general)
+**/slurm_*.out
+**/slurm_*.err
+*.out
+*.err
+# Choose the pattern that best fits your project structure, the first two are safer.
+
+# Ignore Weights & Biases generated directory
+wandb/
+
+# Add other common ignores if not already present (examples):
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment folders
+venv/
+env/
+.venv/
+.env/
+
+# IDE / Editor specific files
+.vscode/
+.idea/
+*.swp
+*~
