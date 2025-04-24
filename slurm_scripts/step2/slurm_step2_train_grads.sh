@@ -11,30 +11,56 @@
 #SBATCH --time=0-04:00:00                # Adjust time estimate (e.g., 4 hours per checkpoint) - MODIFY AS NEEDED
 #SBATCH --array=0-3                      # Creates 4 tasks (0, 1, 2, 3) corresponding to checkpoints
 
+# --- REDIRECT CACHES TO SCRATCH ---
+export PIP_CACHE_DIR="/scratch/network/pw5115/.cache/pip"
+export CONDA_PKGS_DIRS="/scratch/network/pw5115/.conda/pkgs"
+export HF_HOME="/scratch/network/pw5115/.cache/huggingface"
+export MPLCONFIGDIR="/scratch/network/pw5115/.config/matplotlib"
+# Add others specific to your workflow (e.g., Transformers, Datasets)
+
+# Create directories if they don't exist (conda might handle its own)
+mkdir -p $PIP_CACHE_DIR
+mkdir -p $(dirname $CONDA_PKGS_DIRS) # Make parent dir for conda
+mkdir -p $HF_HOME
+mkdir -p $MPLCONFIGDIR
+
+echo "Cache directories redirected:"
+echo "PIP_CACHE_DIR=$PIP_CACHE_DIR"
+echo "CONDA_PKGS_DIRS=$CONDA_PKGS_DIRS"
+echo "HF_HOME=$HF_HOME"
+echo "MPLCONFIGDIR=$MPLCONFIGDIR"
+# --- END CACHE REDIRECTION ---
+
 echo "Job running on node: $(hostname)"
 echo "SLURM_JOB_GPUS: $SLURM_JOB_GPUS"
 echo "CUDA_VISIBLE_DEVICES: $CUDA_VISIBLE_DEVICES"
 
 # --- Environment Setup ---
 module purge # Start clean
+
+echo "Loading build modules..."
+# module load gcc/11.4 # Example: Load a reasonably modern GCC (CHECK ADROIT DOCS/module avail)
+module load cudatoolkit/12.2 # <<<--- CORRECTED VERSION based on avail and torch req.
+echo "Modules loaded."
+
 module load anaconda3/2024.10 # Load the same Anaconda module
-conda activate LESS_env      # Activate the same Conda environment
+conda activate less      # Activate the same Conda environment
 
 export WANDB_MODE=offline   # Set WandB mode
 echo "WANDB_MODE set to: $WANDB_MODE"
 
 # --- Configuration ---
 CODE_DIR="/scratch/network/pw5115/my_less_project/implicit-ins-improved/LESS" # Your project's code directory
-CHECKPOINTS=(105 211 317 420) # Array of checkpoint numbers from warmup
+CHECKPOINTS=(2468 4936 7405 9872) # Array of checkpoint numbers from warmup
 CKPT_INDEX=$SLURM_ARRAY_TASK_ID
 CKPT=${CHECKPOINTS[$CKPT_INDEX]}
 
 WARMUP_JOB_NAME="llama2-7b-p0.05-lora-seed3" # Derived from your run_warmup.sh
-TRAINING_DATA_NAME="openMathInstruct-1"
+TRAINING_DATA_NAME="openmathinstruct1"
 # Construct full path based on CODE_DIR and relative data path from run_warmup.sh
-TRAINING_DATA_FILE="${CODE_DIR}/data/train/processed/openMathInstruct-1/openMathInstruct-1_data.jsonl"
+TRAINING_DATA_FILE="${CODE_DIR}/data/train/processed/openmathinstruct1/openmathinstruct1_data.jsonl"
 GRADIENT_TYPE="adam"
-MODEL_PATH="${CODE_DIR}/out/${WARMUP_JOB_NAME}/checkpoint-${CKPT}"
+MODEL_PATH="${CODE_DIR}/../out/${WARMUP_JOB_NAME}/checkpoint-${CKPT}"
 OUTPUT_PATH="${CODE_DIR}/grads/${WARMUP_JOB_NAME}/${TRAINING_DATA_NAME}-ckpt${CKPT}-${GRADIENT_TYPE}"
 DIMS="8192" # Projection dimension
 
@@ -60,11 +86,13 @@ echo "Navigating to code directory: ${CODE_DIR}"
 cd "${CODE_DIR}"
 echo "Current directory: $(pwd)"
 
+SCRIPT_TO_RUN="./less/scripts/get_info/grad/get_train_lora_grads.sh"
+
 echo "Starting gradient calculation for training data (Step 2) for Checkpoint ${CKPT}..."
 # Ensure the script has execute permissions
-chmod +x ./less/scripts/get_info/get_train_lora_grads.sh
+chmod +x "${SCRIPT_TO_RUN}" 
 
-./less/scripts/get_info/get_train_lora_grads.sh \
+"${SCRIPT_TO_RUN}" \
     "$TRAINING_DATA_FILE" \
     "$MODEL_PATH" \
     "$OUTPUT_PATH" \

@@ -29,11 +29,13 @@ fi
 
 
 training_args="$base_training_args \
-  --model_name_or_path $model_path \
-  --output_dir $output_dir \
-  --percentage $percentage \
-  --data_seed $data_seed \
-  --train_files $train_file"
+--fsdp 'full_shard auto_wrap' \
+--fsdp_config llama_finetune \
+--model_name_or_path $model_path \
+--output_dir $output_dir \
+--percentage $percentage \
+--data_seed $data_seed \
+--train_files "$train_file" 2>&1 | tee $output_dir/train.log"
 
 echo "🚀  Launching warm‑up with:"
 echo "    Model        : $model_path"
@@ -43,4 +45,4 @@ echo "    Seed         : $data_seed"
 echo "    Output dir   : $output_dir"
 echo
 
-eval "$header" "$training_args" 2>&1 | tee "$output_dir/train.log"
+eval "$header" "$training_args"

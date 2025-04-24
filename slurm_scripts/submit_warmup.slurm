@@ -1,14 +1,14 @@
 #!/bin/bash
-#SBATCH --job-name=less_warmup    # Job name for identification
-#SBATCH --output=less_warmup_%j.out # Standard output log file (%j is the job ID)
-#SBATCH --error=less_warmup_%j.err  # Standard error log file (%j is the job ID)
-#SBATCH --partition=gpu           # Specify the GPU partition (IMPORTANT: Verify Adroit's GPU partition name, e.g., 'gpu', 'a100')
-#SBATCH --constraint=gpu80
-#SBATCH --nodes=1                 # Explicitly request one node
-#SBATCH --gres=gpu:1              # Request 1 GPU (Llama 7B LoRA likely needs at least 1)
-#SBATCH --cpus-per-task=4         # Request CPU cores (adjust based on potential data loading needs)
-#SBATCH --mem=64G                 # Request RAM (e.g., 64GB; monitor usage and adjust if needed)
-#SBATCH --time=0-16:00:00         # Maximum runtime (e.g., 8 hours; adjust based on estimate for 5% data)
+#SBATCH --job-name=less_warmup_multi_gpu # Changed job name slightly
+#SBATCH --output=less_warmup_%j.out
+#SBATCH --error=less_warmup_%j.err
+#SBATCH --partition=gpu                   # Keep partition (verify 'gpu' is correct for multi-A100 nodes on Adroit)
+#SBATCH --constraint=gpu80                # Keep constraint for A100 80GB GPUs
+#SBATCH --nodes=1                         # Request one node (typical for FSDP unless configured for multi-node)
+#SBATCH --gres=gpu:2                      # Request 4 GPUs (Adjust to 2, 4, or 8 based on Adroit node availability and code scaling)
+#SBATCH --cpus-per-task=8                # Request CPU cores (e.g., 4 cores per GPU requested)
+#SBATCH --mem=128G                        # Request RAM (e.g., 64GB per GPU requested - adjust based on monitoring)
+#SBATCH --time=0-16:00:00                 # Maximum runtime (adjust based on estimated speedup - 16h might be safe)
 
 echo "Job running on node: $(hostname)"
 echo "SLURM_JOB_GPUS: $SLURM_JOB_GPUS" # See which GPU IDs Slurm allocated

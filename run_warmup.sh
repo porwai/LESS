@@ -9,5 +9,7 @@ JOB_NAME="llama2-7b-p${PERCENTAGE}-lora-seed${DATA_SEED}"
 # Verify JOB_NAME looks right (optional)
 echo "JOB_NAME is set to: ${JOB_NAME}"
 
+chmod +x ./less/scripts/train/warmup_lora_train.sh
+
 # Run the script
 ./less/scripts/train/warmup_lora_train.sh "$DATA_DIR" "$MODEL_PATH" "$PERCENTAGE" "$DATA_SEED" "$JOB_NAME" "$TRAIN_SET"
